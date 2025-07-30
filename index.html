@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KRITICOGITO - AI & IoT Solutions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #2c3e99 0%, #3b4cb8 100%);
+            padding: 1rem 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #ffc107;
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+            min-height: 100vh;
+            padding: 100px 0 50px;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Home Section */
+        .hero {
+            background: linear-gradient(135deg, #2c3e99 0%, #6f42c1 100%);
+            color: white;
+            text-align: center;
+            padding: 150px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #ffc107 0%, #ff8f00 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 193, 7, 0.4);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 50px 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #6f42c1;
+        }
+
+        /* Metrics Section */
+        .metrics {
+            background: #f8f9fa;
+            padding: 80px 0;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .metric-box {
+            background: linear-gradient(135deg, #6f42c1 0%, #5a2d91 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            transform: perspective(1000px) rotateY(0deg);
+            transition: all 0.3s ease;
+        }
+
+        .metric-box:hover {
+            transform: perspective(1000px) rotateY(10deg) translateY(-10px);
+        }
+
+        .metric-value {
+            font-size: 3rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* About Section */
+        .about-hero {
+            background: linear-gradient(135deg, #3b4cb8 0%, #2c3e99 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .about-content {
+            padding: 80px 0;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin: 50px 0;
+        }
+
+        .tech-stack {
+            background: #f8f9fa;
+            padding: 80px 0;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .tech-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tech-card:hover {
+            border-color: #6f42c1;
+            transform: translateY(-5px);
+        }
+
+        /* Case Studies */
+        .case-studies {
+            padding: 80px 0;
+        }
+
+        .case-study-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .case-study-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .case-study-header {
+            background: linear-gradient(135deg, #6f42c1 0%, #5a2d91 100%);
+            color: white;
+            padding: 2rem;
+        }
+
+        .case-study-content {
+            padding: 2rem;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .result-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .result-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #6f42c1;
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 50px 0;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, #ffc107 0%, #ff8f00 100%);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .module-tag {
+            background: #e9ecef;
+            padding: 0.5rem;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Contact Section */
+        .contact-hero {
+            background: linear-gradient(135deg, #2c3e99 0%, #6f42c1 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .contact-content {
+            padding: 80px 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #6f42c1;
+        }
+
+        .contact-info {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            background: linear-gradient(135deg, #6f42c1 0%, #5a2d91 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: #2c3e99;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mt-2 { margin-top: 2rem; }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e99;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">KRITICOGITO</div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#" class="nav-link active" data-section="home">Home</a></li>
+                <li><a href="#" class="nav-link" data-section="about">About Us</a></li>
+                <li><a href="#" class="nav-link" data-section="case-studies">Case Studies</a></li>
+                <li><a href="#" class="nav-link" data-section="projects">Projects</a></li>
+                <li><a href="#" class="nav-link" data-section="contact">Contact Us</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="section active">
+        <div class="hero">
+            <div class="container">
+                <div class="hero-content fade-in-up">
+                    <h1>KRITICOGITO</h1>
+                    <p class="hero-subtitle">Complete AI & IoT Digitalization Solution</p>
+                    <p style="font-size: 1.2rem; margin-bottom: 2rem;">Transform your manufacturing with Industry 4.0 smart solutions</p>
+                    <a href="#" class="cta-button" data-section="contact">Get Started Today</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="metrics">
+            <div class="container">
+                <h2 class="section-title">Performance Metrics</h2>
+                <div class="metrics-grid">
+                    <div class="metric-box">
+                        <span class="metric-value">40%</span>
+                        <div>Efficiency Boost</div>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-value">60%</span>
+                        <div>Error Reduction</div>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-value">99.9%</span>
+                        <div>Uptime</div>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-value">200+</span>
+                        <div>Years Combined Experience</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚜</div>
+                    <h3>Smart Assembly Line</h3>
+                    <p>Real-time production monitoring with AI-enhanced digital work instructions and automated quality control.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>QR Code Traceability</h3>
+                    <p>Complete product traceability from raw materials to finished goods with blockchain-secure tracking.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI-Powered Analytics</h3>
+                    <p>Predictive maintenance capabilities with self-learning AI systems that continuously optimize processes.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">☁</div>
+                    <h3>Cloud Integration</h3>
+                    <p>Scalable cloud-based architecture with 99.9% uptime guarantee and real-time data analytics.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="section">
+        <div class="about-hero">
+            <div class="container">
+                <h1 class="fade-in-up">About KRITICOGITO</h1>
+                <p class="hero-subtitle fade-in-up">Technology Solutions Pvt. Ltd.</p>
+            </div>
+        </div>
+
+        <div class="about-content">
+            <div class="container">
+                <div class="about-grid">
+                    <div>
+                        <h2>Our Mission</h2>
+                        <p>We are dedicated to transforming manufacturing through cutting-edge AI and IoT solutions. Our Business 360 platform represents the next evolution in industrial digitalization, providing comprehensive solutions that drive efficiency, reduce errors, and optimize operations.</p>
+                        
+                        <h3 class="mt-2">Why Choose Us?</h3>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="margin: 1rem 0;"><strong>♦ 200+ Years Combined Experience:</strong> Our team brings unparalleled expertise in AI and IoT</li>
+                            <li style="margin: 1rem 0;"><strong>♦ CE Certified Hardware:</strong> 3-year warranty with proven reliability</li>
+                            <li style="margin: 1rem 0;"><strong>♦ 99.9% Cloud Uptime:</strong> Guaranteed availability for mission-critical operations</li>
+                            <li style="margin: 1rem 0;"><strong>♦ ESG Compliance:</strong> Audit-ready solutions for sustainable manufacturing</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2>Industries We Serve</h2>
+                        <div class="features-grid" style="grid-template-columns: 1fr 1fr;">
+                            <div class="feature-card">
+                                <div class="feature-icon">⚒</div>
+                                <h4>Manufacturing</h4>
+                                <p>Smart factory solutions for optimized production</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">🚗</div>
+                                <h4>Automotive</h4>
+                                <p>Advanced assembly line automation</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">⚗</div>
+                                <h4>Pharmaceuticals</h4>
+                                <p>Compliance-ready quality control systems</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">🔌</div>
+                                <h4>Electronics</h4>
+                                <p>Precision manufacturing and testing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tech-stack">
+            <div class="container">
+                <h2 class="section-title">Technology Stack</h2>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h3>Unifier 500 Gateway</h3>
+                        <p>Industrial-grade IoT gateway for seamless device connectivity</p>
+                    </div>
+                    <div class="tech-card">
+                        <h3>AI Cloud Platform</h3>
+                        <p>Scalable cloud infrastructure with machine learning capabilities</p>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Mobile Applications</h3>
+                        <p>Cross-platform mobile apps for remote monitoring and control</p>
+                    </div>
+                    <div class="tech-card">
+                        <h3>SSL Security</h3>
+                        <p>Enterprise-grade security with end-to-end encryption</p>
+                    </div>
+                    <div class="tech-card">
+                        <h3>ERP Integration</h3>
+                        <p>Seamless integration with existing enterprise systems</p>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Real-time Analytics</h3>
+                        <p>Live dashboards with predictive insights and alerts</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section id="case-studies" class="section">
+        <div class="container">
+            <h1 class="section-title">Case Studies</h1>
+            <p class="section-subtitle">Real-world success stories from our industry-leading implementations</p>
+
+            <div class="case-study-card">
+                <div class="case-study-header">
+                    <h2>🚗 Automotive Assembly Line Transformation</h2>
+                    <p>Leading automotive manufacturer digitizes production line with AI-powered quality control</p>
+                </div>
+                <div class="case-study-content">
+                    <h3>Challenge</h3>
+                    <p>A major automotive manufacturer was facing quality control issues with 15% defect rates and 20% unplanned downtime, leading to significant production losses and customer complaints.</p>
+                    
+                    <h3>Solution</h3>
+                    <p>Implemented our complete Business 360 solution with real-time production monitoring, AI-enhanced quality control, and predictive maintenance capabilities across 3 production lines.</p>
+                    
+                    <h3>Results</h3>
+                    <div class="results-grid">
+                        <div class="result-item">
+                            <div class="result-value">95%</div>
+                            <div>Defect Reduction</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value">85%</div>
+                            <div>Downtime Reduction</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value">$2.5M</div>
+                            <div>Annual Savings</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value">6 months</div>
+                            <div>ROI Timeline</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-study-card">
+                <div class="case-study-header">
+                    <h2>⚗ Pharmaceutical Quality Assurance</h2>
+                    <p>Global pharma company achieves 100% traceability and regulatory compliance</p>
+                </div>
+                <div class="case-study-content">
+                    <h3>Challenge</h3>
+                    <p>Pharmaceutical company needed complete batch traceability and real-time quality monitoring to meet stringent FDA regulations while reducing compliance costs.</p>
+                    
+                    <h3>Solution</h3>
+                    <p>Deployed our comprehensive traceability system with QR code tracking, automated quality check modules, and real-time compliance monitoring across 5 manufacturing facilities.</p>
+                    
+                    <h3>Results</h3>
+                    <div class="results-grid">
+                        <div class="result-item">
+                            <div class="result-value">100%</div>
+                            <div>Batch Traceability</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value">70%</div>
+                            <div>Audit Time Reduction</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value">0</div>
+                            <div>Compliance Issues</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value">$1.8M</div>
+                            <div>Annual Cost Savings</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-study-card">
+                <div class="case-study-header">
+                    <h2>🔌 Electronics Manufacturing Optimization</h2>
+                    <p>Circuit board manufacturer achieves 99.8% quality rate with AI-powered inspection</p>
+                </div>
+                <div class="case-study-content">
+                    <h3>Challenge</h3>
+                    <p>Electronics manufacturer struggled with microscopic defect detection, leading to high warranty claims and customer returns in high-precision circuit board production.</p>
+                    
+                    <h3>Solution</h3>
+                    <p>Implemented AI-enhanced digital work instructions with automated optical inspection, real-time production monitoring, and predictive quality control systems.</p>
+                    
+                    <h3>Results</h3>
+                    <div class="results-grid">
+                        <div class="result-item">
+                            <div class="result-value">99.8%</div>
+                            <div>Quality Rate</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value">90%</div>
+                            <div>Inspection Time Reduction</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value">25%</div>
+                            <div>Throughput Increase</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value">$3.2M</div>
+                            <div>Annual Value Creation</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h1 class="section-title">Our Projects</h1>
+            <p class="section-subtitle">Comprehensive solutions powered by our 12 integrated modules</p>
+
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Smart Factory Initiative</h3>
+                        <p>Complete digital transformation package</p>
+                    </div>
+                    <div class="project-content">
+                        <p>End-to-end digitalization of manufacturing operations with integrated AI and IoT capabilities for maximum efficiency and quality control.</p>
+                        
+                        <h4>Included Modules:</h4>
+                        <div class="modules-grid">
+                            <div class="module-tag">Planning</div>
+                            <div class="module-tag">Production</div>
+                            <div class="module-tag">Quality Check</div>
+                            <div class="module-tag">Maintenance</div>
+                            <div class="module-tag">Logistics</div>
+                            <div class="module-tag">Analytics</div>
+                        </div>
+                        
+                        <p><strong>Timeline:</strong> 6-12 months<br>
+                        <strong>ROI:</strong> 15-50% over 3 years</p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Quality Assurance Plus</h3>
+                        <p>Advanced quality control system</p>
+                    </div>
+                    <div class="project-content">
+                        <p>AI-powered quality assurance with real-time monitoring, automated inspection, and complete traceability for regulatory compliance.</p>
+                        
+                        <h4>Included Modules:</h4>
+                        <div class="modules-grid">
+                            <div class="module-tag">Quality Assurance</div>
+                            <div class="module-tag">Quality Check</div>
+                            <div class="module-tag">Traceability</div>
+                            <div class="module-tag">Analytics</div>
+                        </div>
+                        
+                        <p><strong>Timeline:</strong> 3-6 months<br>
+                        <strong>ROI:</strong> 25-60% error reduction</p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Predictive Maintenance</h3>
+                        <p>AI-driven maintenance optimization</p>
+                    </div>
+                    <div class="project-content">
+                        <p>Reduce unplanned downtime with machine learning algorithms that predict equipment failures before they occur.</p>
+                        
+                        <h4>Included Modules:</h4>
+                        <div class="modules-grid">
+                            <div class="module-tag">Maintenance</div>
+                            <div class="module-tag">Analytics</div>
+                            <div class="module-tag">Utilities</div>
+                        </div>
+                        
+                        <p><strong>Timeline:</strong> 2-4 months<br>
+                        <strong>ROI:</strong> 30-70% downtime reduction</p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Supply Chain Optimization</h3>
+                        <p>Integrated logistics and warehouse management</p>
+                    </div>
+                    <div class="project-content">
+                        <p>Optimize your entire supply chain with real-time tracking, automated inventory management, and predictive analytics.</p>
+                        
+                        <h4>Included Modules:</h4>
+                        <div class="modules-grid">
+                            <div class="module-tag">Logistics</div>
+                            <div class="module-tag">Warehouse</div>
+                            <div class="module-tag">Planning</div>
+                            <div class="module-tag">Analytics</div>
+                        </div>
+                        
+                        <p><strong>Timeline:</strong> 4-8 months<br>
+                        <strong>ROI:</strong> 20-40% cost reduction</p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Enterprise Integration</h3>
+                        <p>Complete business management suite</p>
+                    </div>
+                    <div class="project-content">
+                        <p>Integrate all business functions with our comprehensive 12-module solution for complete operational visibility and control.</p>
+                        
+                        <h4>All 12 Modules:</h4>
+                        <div class="modules-grid">
+                            <div class="module-tag">Planning</div>
+                            <div class="module-tag">Quality Assurance</div>
+                            <div class="module-tag">Production</div>
+                            <div class="module-tag">Quality Check</div>
+                            <div class="module-tag">Traceability</div>
+                            <div class="module-tag">Maintenance</div>
+                            <div class="module-tag">Logistics</div>
+                            <div class="module-tag">Utilities</div>
+                            <div class="module-tag">Leadership</div>
+                            <div class="module-tag">Warehouse</div>
+                            <div class="module-tag">Sales</div>
+                            <div class="module-tag">HR</div>
+                        </div>
+                        
+                        <p><strong>Timeline:</strong> 12-18 months<br>
+                        <strong>ROI:</strong> 40-80% efficiency improvement</p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Starter Package</h3>
+                        <p>Entry-level digitalization solution</p>
+                    </div>
+                    <div class="project-content">
+                        <p>Perfect for small to medium manufacturers looking to begin their digital transformation journey with essential monitoring capabilities.</p>
+                        
+                        <h4>Included Modules:</h4>
+                        <div class="modules-grid">
+                            <div class="module-tag">Production</div>
+                            <div class="module-tag">Quality Check</div>
+                            <div class="module-tag">Analytics</div>
+                        </div>
+                        
+                        <p><strong>Timeline:</strong> 1-3 months<br>
+                        <strong>ROI:</strong> 15-30% efficiency boost</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="contact-hero">
+            <div class="container">
+                <h1 class="fade-in-up">Transform Your Manufacturing Today!</h1>
+                <p class="hero-subtitle fade-in-up">Get in touch with our experts to discuss your digitalization journey</p>
+            </div>
+        </div>
+
+        <div class="contact-content">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-form">
+                        <h2>Send us a Message</h2>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="company">Company Name</label>
+                                <input type="text" id="company" name="company">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="industry">Industry</label>
+                                <select id="industry" name="industry" style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 1rem;">
+                                    <option value="">Select Industry</option>
+                                    <option value="manufacturing">Manufacturing</option>
+                                    <option value="automotive">Automotive</option>
+                                    <option value="pharmaceutical">Pharmaceutical</option>
+                                    <option value="electronics">Electronics</option>
+                                    <option value="energy">Energy</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message *</label>
+                                <textarea id="message" name="message" rows="5" required placeholder="Tell us about your project requirements and how we can help transform your manufacturing operations..."></textarea>
+                            </div>
+                            <button type="submit" class="cta-button" style="width: 100%;">Send Message</button>
+                        </form>
+                    </div>
+
+                    <div class="contact-info">
+                        <h2>Contact Information</h2>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">👤</div>
+                            <div>
+                                <h4>Contact Person</h4>
+                                <p>Saurabh Bhalla<br>Solutions Specialist</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">✉</div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>sales@kriticogito.com</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">📞</div>
+                            <div>
+                                <h4>Phone</h4>
+                                <p>+91 9000933710</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div>
+                                <h4>Address</h4>
+                                <p>115, 1st D Cross, Kasturi Nagar<br>Bangalore - 560043<br>Karnataka, India</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">🕒</div>
+                            <div>
+                                <h4>Business Hours</h4>
+                                <p>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 9:00 AM - 1:00 PM</p>
+                            </div>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 10px; margin-top: 2rem;">
+                            <h3>Why Choose KRITICOGITO?</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin: 0.5rem 0;">✓ 200+ Years Combined AI & IoT Experience</li>
+                                <li style="margin: 0.5rem 0;">✓ CE Certified Hardware with 3-Year Warranty</li>
+                                <li style="margin: 0.5rem 0;">✓ 99.9% Cloud Uptime Guaranteed</li>
+                                <li style="margin: 0.5rem 0;">✓ Proven ROI: 15-50% cost savings over 3 years</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Navigation functionality
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.section');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+
+        // Handle navigation
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetSection = link.getAttribute('data-section');
+                
+                // Remove active class from all links and sections
+                navLinks.forEach(l => l.classList.remove('active'));
+                sections.forEach(s => s.classList.remove('active'));
+                
+                // Add active class to clicked link and target section
+                link.classList.add('active');
+                document.getElementById(targetSection).classList.add('active');
+                
+                // Close mobile menu if open
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Handle CTA buttons
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                if (button.getAttribute('data-section')) {
+                    e.preventDefault();
+                    const targetSection = button.getAttribute('data-section');
+                    
+                    // Remove active class from all links and sections
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to target section and corresponding nav link
+                    document.getElementById(targetSection).classList.add('active');
+                    document.querySelector(`[data-section="${targetSection}"]`).classList.add('active');
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        mobileMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Contact form handling
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(e.target);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            
+            // Simulate form submission
+            alert('Thank you for your message! We will get back to you within 24 hours.');
+            e.target.reset();
+        });
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and elements for animation
+        document.querySelectorAll('.feature-card, .metric-box, .tech-card, .case-study-card, .project-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for better UX
+        document.documentElement.style.scrollBehavior = 'smooth';
+    </script>
+</body>
+</html>
